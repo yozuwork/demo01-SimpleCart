@@ -2,70 +2,21 @@ import { useReducer } from 'react'
 import Navbar from './components/navbar'
 import Products from './components/Products'
 import Cart from './components/Cart'
-import { CartContext } from './store'
+import { CartContext, reducer , initialState } from './store'
 
 import './App.css'
 
-
 //初始狀態
-const initialState = {
-  cartList: [],
-};
 
-function reducer(state, action) {
-  const cartList = [...state.cartList];
-  const index = cartList.findIndex((item)=> item.id === action.payload.id);
-  console.log('index', index);
-  console.log('action', cartList);
-  switch (action.type) {
-    case 'ADD_TO_CART':
-      if(index === -1){
-         //如果沒有找到，則將商品加入購物車
-         cartList.push(action.payload);
-      }else {
-        //如果找到，當前購物車的項目與加入的購物車項目一致
-        cartList[index].qty += action.payload.qty;
-      }
- 
-
-      return {
-        ...state,
-        cartList,
-        total:cartListTotal(cartList)
-      };
-    case 'CHANGE_CART_QTY': 
-   
-       cartList[index].qty = action.payload.qty;
-       
-       return{
-         ...state,
-         cartList,
-         total:cartListTotal(cartList)
-       }
-    case 'REMOVE_FROM_CART':
-       cartList.splice(index, 1);
-       return {
-         ...state,
-         cartList,
-         total:cartListTotal(cartList)
-       };
-    default:
-      return state;
-  }
-}
-
-
-function cartListTotal(cartList) {
-  return cartList.map((item) => item.qty * item.price)
-    .reduce((acc, cur) => acc + cur, 0)
-}
 
 function App() {
    
   const [state, dispatch] = useReducer(reducer, initialState);
+  // 用物件包裝後傳給 Provider
+  const contextValue = { state, dispatch };
   return (
     <>
-       <CartContext.Provider  value={{ state, dispatch }}>
+       <CartContext.Provider  value={contextValue}>
           <Navbar />
            {/* 內容分隔 */}
            <div className='max-w-screen-xl mx-auto mt-4 px-4'>
