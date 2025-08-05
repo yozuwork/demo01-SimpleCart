@@ -30,6 +30,12 @@ function reducer(state, action) {
         ...state,
         cartList
       };
+    case 'CHANGE_CART_QTY': 
+       cartList[index].qty = action.payload.qty;
+       return{
+         ...state,
+         cartList
+       }
     default:
       return state;
   }

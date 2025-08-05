@@ -1,8 +1,9 @@
 import { useContext } from 'react';
 import { CartContext } from '../store';
 
+
 export default function Cart() {
-    const { state } = useContext(CartContext);
+    const { state , dispatch } = useContext(CartContext);
     return (
         <div className='bg-light p-3'>
             <table className="table-auto w-full border-collapse">
@@ -25,11 +26,24 @@ export default function Cart() {
                                 <select
                                     name=""
                                     id=""
+                                    onChange={(e)=>{
+                                        const qty = parseInt(e.target.value);
+                                        dispatch({
+                                            type: 'CHANGE_CART_QTY',
+                                            payload:{
+                                                ...item,
+                                                qty
+                                            }
+                                        })
+                                    }}
+                                    value={item.qty}
                                     className="block w-full border border-gray-300 rounded px-2 py-1 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 >
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
+                                   {[...Array(20)].map((_,index)=>{
+                                        return (
+                                             <option value={index+1} key={index} >{index+1}</option>
+                                        )
+                                   })}
                                 </select>
                             </td>
                             <td className="py-2 px-4 text-right align-middle">NT${item.price * item.qty}</td>
