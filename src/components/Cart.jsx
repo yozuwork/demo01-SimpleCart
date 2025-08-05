@@ -69,7 +69,7 @@ export default function Cart() {
                             colSpan={5}
                             className="py-4 px-4 text-right text-lg font-semibold text-gray-800 align-middle"
                         >
-                            總金額 NT$ 440
+                            總金額 NT$ {state.total || 0}
                         </td>
                     </tr>
                 </tfoot>

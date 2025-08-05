@@ -26,27 +26,39 @@ function reducer(state, action) {
         //如果找到，當前購物車的項目與加入的購物車項目一致
         cartList[index].qty += action.payload.qty;
       }
+ 
+
       return {
         ...state,
-        cartList
+        cartList,
+        total:cartListTotal(cartList)
       };
     case 'CHANGE_CART_QTY': 
+   
        cartList[index].qty = action.payload.qty;
+       
        return{
          ...state,
-         cartList
+         cartList,
+         total:cartListTotal(cartList)
        }
     case 'REMOVE_FROM_CART':
        cartList.splice(index, 1);
        return {
          ...state,
-         cartList
+         cartList,
+         total:cartListTotal(cartList)
        };
     default:
       return state;
   }
 }
 
+
+function cartListTotal(cartList) {
+  return cartList.map((item) => item.qty * item.price)
+    .reduce((acc, cur) => acc + cur, 0)
+}
 
 function App() {
    
