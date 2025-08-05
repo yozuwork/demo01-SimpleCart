@@ -1,4 +1,8 @@
+import { useContext } from "react"
+import { CartContext } from "../store";
 export default function Navbar() {
+  const {state} = useContext(CartContext);  
+ 
   return (
     <nav className='bg-gray-100 shadow'>
         <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
@@ -16,7 +20,7 @@ export default function Navbar() {
                 px-2 py-0.5 rounded-full
                 "
             >
-                99
+                {state.cartList.length}
             </span>
             </button>
         </div>  

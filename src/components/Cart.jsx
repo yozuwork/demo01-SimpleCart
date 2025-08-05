@@ -11,7 +11,20 @@ export default function Cart() {
                     {state.cartList.map((item, idx) => (
                         <tr className="border-b" key={idx}>
                             <td className='py-2 px-4 text-center align-middle'>
-                                <a href="#" className="text-red-500 hover:underline">✕</a>
+                                <a 
+                                  href="#" className="text-red-500 hover:underline"
+                                  onClick={(e)=>{
+                                    e.preventDefault();
+                                    dispatch({
+                                        type: 'REMOVE_FROM_CART',
+                                        payload: {
+                                           ...item
+                                        }
+                                    });
+                                  }}
+                                >
+                                ✕
+                                </a>
                             </td>
                             <td className="py-2 px-4 align-middle">
                                 <img src={item.img} alt="商品圖片" className="w-16 h-16 object-cover rounded" />

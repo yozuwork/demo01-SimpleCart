@@ -36,6 +36,12 @@ function reducer(state, action) {
          ...state,
          cartList
        }
+    case 'REMOVE_FROM_CART':
+       cartList.splice(index, 1);
+       return {
+         ...state,
+         cartList
+       };
     default:
       return state;
   }
