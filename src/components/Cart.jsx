@@ -32,7 +32,7 @@ export default function Cart() {
                                     <option value="3">3</option>
                                 </select>
                             </td>
-                            <td className="py-2 px-4 text-right align-middle">$NT440</td>
+                            <td className="py-2 px-4 text-right align-middle">NT${item.price * item.qty}</td>
                         </tr>
                     ))}
                 </tbody>
